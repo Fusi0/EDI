@@ -5,6 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Website Title</title>
+    
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            border: 2px solid black; 
+        }
+
+        th, td {
+            border: 1px solid black; 
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
 </head>
 
 <body>
@@ -33,7 +47,7 @@
             <p>This is the section about our website. This project is about cars that are on a sale. </p>
             <p>Below you can see a list of cars with their brand, model, year of production and many more.</p> 
         </div>
-    
+        <div id="fetchAPI"></div>
 
     </section>
 
@@ -52,6 +66,55 @@
     <footer>
         <p>&copy; 2023 Your Website. All rights reserved.</p>
     </footer>
+
+    <script>
+        function fetchAPI() {
+            var apiUrl = 'https://my.api.mockaroo.com/cars.json?key=51df27a0'
+            
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('HTTP error! Status: ${response.status}');
+
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    displayData(data);
+
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+
+                });
+
+        }
+
+        function displayData(data) {
+            var dataContainer = document.getElementById('fetchAPI');
+
+            var table = document.createElement('table');
+    
+            var headerRow = table.insertRow();
+            for (var key in data[0]) {
+                var headerCell = document.createElement('th');
+                headerCell.textContent = key;
+                headerRow.appendChild(headerCell);
+            }
+        
+            data.forEach(item => {
+                var row = table.insertRow();
+                for (var key in item) {
+                    var cell = row.insertCell();
+                    cell.textContent = item[key];
+                }
+            });
+
+            dataContainer.appendChild(table);
+        }
+        window.onload = fetchAPI
+    </script>
+
 
 </body>
 
