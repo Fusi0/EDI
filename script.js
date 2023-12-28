@@ -41,7 +41,7 @@ function displayData(data) {
     dataContainer.appendChild(table);
 }
 
-
+// added filter for car_brand model and engine type
 function createFilterInputs() {
     var table = document.getElementById('myTable');
     var headerRow = table.querySelector('tr');
