@@ -19,7 +19,7 @@ after the deadline, the final grade for the project will be reduced by 20 points
 (❗❗❗) 4️. You can make changes to project files on github before the deadline. If you make changes to the project files after the deadline, the final grade for the project will be reduced by 20 points.
 
 
-(❌) 5. Using the mockaroo.com website, create an API (Application Programming Interface) that will allow you to download data in JSON format:
+(✔️) 5. Using the mockaroo.com website, create an API (Application Programming Interface) that will allow you to download data in JSON format:
 a. Find out how to create an API:
 https://youtu.be/H91_P_Zr2M0
 b. Create an account on mockaroo.com.
