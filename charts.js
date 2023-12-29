@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     
-    fetch('https://my.api.mockaroo.com/cars.json?key=51df27a0')
+    fetch('https://my.api.mockaroo.com/cars.json?key=8200ff40')
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -46,6 +46,7 @@ function createEngineTypesChart(data) {
                 ],
             }],
         },
+        
         options: {
             responsive: true,
             maintainAspectRatio: false,
