@@ -1,5 +1,5 @@
 function fetchAPI() {
-    var apiUrl = 'https://my.api.mockaroo.com/cars.json?key=daee4d70';
+    var apiUrl = 'cars.json'; // here will be api in future
 
     fetch(apiUrl)
         .then(response => {
@@ -41,7 +41,7 @@ function displayData(data) {
     dataContainer.appendChild(table);
 }
 
-function createFilterInputs(data) {
+function createFilterInputs() {
     var table = document.getElementById('myTable');
     var headerRow = table.querySelector('tr');
 
@@ -54,11 +54,12 @@ function createFilterInputs(data) {
             input.placeholder = 'Filter ' + columnName;
             input.addEventListener('input', (function (index) {
                 return function () {
-                    filterTable(); 
+                    filterTable();
                 };
             })(columnIndex));
             headerRow.cells[columnIndex].appendChild(input);
-        } else if (columnName === 'engine_type') {
+        }
+        else if (columnName === 'engine_type') {
             var select = document.createElement('select');
             var options = ['all', 'diesel', 'gasoline', 'LPG', 'electric'];
 
@@ -72,9 +73,9 @@ function createFilterInputs(data) {
             select.addEventListener('change', function () {
                 filterTable();
             });
-
             headerRow.cells[columnIndex].appendChild(select);
-        } else if (columnName === 'year_of_production' || columnName === 'price' || columnName === 'vmax'){
+        }
+        else if (columnName === 'year_of_production' || columnName === 'price' || columnName === 'vmax') {
             var minInput = document.createElement('input');
             minInput.type = 'number';
             minInput.placeholder = 'Min';
@@ -108,15 +109,7 @@ function filterTable() {
 
             // Apply text filters
             var inputFilters = table.rows[0].cells[j].querySelectorAll('input[type="text"]');
-            if (inputFilters.length > 0) {
-                var filterValue = inputFilters[0].value.toLowerCase();
-                if (filterValue !== '' && !cellValue.toLowerCase().includes(filterValue)) {
-                    rowVisible = false;
-                    break;
-                }
-            }
 
-            // Apply select filters
             var selectFilter = table.rows[0].cells[j].querySelector('select');
             if (selectFilter) {
                 var filterValueSelect = selectFilter.value.toLowerCase();
@@ -126,11 +119,40 @@ function filterTable() {
                     break;
                 }
             }
+
+            if (inputFilters.length > 0) {
+                var filterValue = inputFilters[0].value.toLowerCase();
+                if (filterValue !== '' && !cellValue.toLowerCase().includes(filterValue)) {
+                    rowVisible = false;
+                    break;
+                }
+            }
+
+            // Apply select filters
+
+
+            // Apply min-max filter to the appropriate columns
+            if (['year_of_production', 'vmax', 'price'].includes(table.rows[0].cells[j].textContent)) {
+                var cellValueNum = parseFloat(cellValue) || 0;
+                var minInput = table.rows[0].cells[j].querySelector('input[placeholder="Min"]');
+                var maxInput = table.rows[0].cells[j].querySelector('input[placeholder="Max"]');
+                var filterMin = minInput ? parseFloat(minInput.value) || -Infinity : -Infinity;
+                var filterMax = maxInput ? parseFloat(maxInput.value) || Infinity : Infinity;
+
+                if (cellValueNum < filterMin || cellValueNum > filterMax) {
+                    rowVisible = false;
+                    break;
+                }
+            }
         }
 
         rows[i].style.display = rowVisible ? '' : 'none';
     }
+ 
 }
+
+
+
 
 function handleMinMaxFilter() {
     var columnIndex = parseInt(this.getAttribute('data-columnIndex'));
@@ -146,18 +168,22 @@ function handleMinMaxFilter() {
 }
 
 
-function filterTableMinMax(columnIndex, minFilterValue, maxFilterValue) {
+
+function filterTableMinMax(columnIndex) {
     var table = document.getElementById('myTable');
     var rows = table.rows;
 
     for (var i = 1; i < rows.length; i++) {
         var rowVisible = true;
 
+       
+
         for (var j = 0; j < table.rows[0].cells.length; j++) {
             var cellValue = rows[i].cells[j].textContent.trim();
 
             // Apply min-max filter to the appropriate columns
             if (['year_of_production', 'vmax', 'price'].includes(table.rows[0].cells[j].textContent)) {
+
                 var cellValueNum = parseFloat(cellValue) || 0;
                 var minInput = table.rows[0].cells[j].querySelector('input[placeholder="Min"]');
                 var maxInput = table.rows[0].cells[j].querySelector('input[placeholder="Max"]');
@@ -172,6 +198,7 @@ function filterTableMinMax(columnIndex, minFilterValue, maxFilterValue) {
 
             // Apply other filters to non-min-max columns
             if (j !== columnIndex) {
+
                 var inputFilters = table.rows[0].cells[j].querySelectorAll('input[type="text"]');
                 if (inputFilters.length > 0) {
                     var filterValue = inputFilters[0].value.toLowerCase();
@@ -182,18 +209,23 @@ function filterTableMinMax(columnIndex, minFilterValue, maxFilterValue) {
                 }
             }
 
-            // Apply engine type filter
-            if (table.rows[0].cells[j].textContent === 'engine_type') {
-                var selectFilter = table.rows[0].cells[j].querySelector('select');
-                if (selectFilter) {
-                    var filterValueSelect = selectFilter.value.toLowerCase();
-                    var cellValueSelect = cellValue.toLowerCase();
-                    if (filterValueSelect !== 'all' && filterValueSelect !== cellValueSelect) {
-                        rowVisible = false;
-                        break;
-                    }
-                }
-            }
+            // Apply engine type filter - chyba narazie nie potrzebne 
+            //if (['engine_type'].includes(table.rows[0].cells[j].textContent)) {
+            //    
+                // var selectFilter = table.rows[0].cells[j].querySelector('select');
+                // if (selectFilter) {
+                //     var filterValueSelect = selectFilter.value.toLowerCase();
+                //     var cellValueSelect = cellValue.toLowerCase();
+
+                //     // If engine_type is not 'all' and doesn't match the cell value, or
+                //     // if engine_type is 'all' but other filters are active, hide the row
+                //     if ((filterValueSelect !== 'all' && filterValueSelect !== cellValueSelect) ||
+                //         (filterValueSelect === 'all' && isAnyFilterActiveExcept('engine_type'))) {
+                //         rowVisible = false;
+                //         break;
+                //     }
+                // }
+            //}
         }
 
         rows[i].style.display = rowVisible ? '' : 'none';
