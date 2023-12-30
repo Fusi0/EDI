@@ -1,5 +1,5 @@
 function fetchAPI() {
-    var apiUrl = 'https://my.api.mockaroo.com/cars.json?key=8200ff40';
+    var apiUrl = 'https://my.api.mockaroo.com/cars.json?key=daee4d70';
 
     fetch(apiUrl)
         .then(response => {
@@ -60,7 +60,7 @@ function createFilterInputs(data) {
             headerRow.cells[columnIndex].appendChild(input);
         } else if (columnName === 'engine_type') {
             var select = document.createElement('select');
-            var options = ['all', 'diesel', 'gasoline', 'gaz', 'electric'];
+            var options = ['all', 'diesel', 'gasoline', 'LPG', 'electric'];
 
             options.forEach(option => {
                 var optionElement = document.createElement('option');
@@ -74,36 +74,126 @@ function createFilterInputs(data) {
             });
 
             headerRow.cells[columnIndex].appendChild(select);
+        } else if (columnName === 'year_of_production' || columnName === 'price' || columnName === 'vmax'){
+            var minInput = document.createElement('input');
+            minInput.type = 'number';
+            minInput.placeholder = 'Min';
+            minInput.setAttribute('data-columnIndex', columnIndex);
+            minInput.addEventListener('input', handleMinMaxFilter);
+
+            var maxInput = document.createElement('input');
+            maxInput.type = 'number';
+            maxInput.placeholder = 'Max';
+            maxInput.setAttribute('data-columnIndex', columnIndex);
+            maxInput.addEventListener('input', handleMinMaxFilter);
+
+            var inputContainer = document.createElement('div');
+            inputContainer.appendChild(minInput);
+            inputContainer.appendChild(maxInput);
+
+            headerRow.cells[columnIndex].appendChild(inputContainer);
         }
     }
 }
 
 function filterTable() {
-    var table, rows, i, x;
-    table = document.getElementById('myTable');
-    rows = table.rows;
+    var table = document.getElementById('myTable');
+    var rows = table.rows;
 
-    for (i = 1; i < rows.length; i++) {
+    for (var i = 1; i < rows.length; i++) {
         var rowVisible = true;
 
-        for (var columnIndex = 0; columnIndex < table.rows[0].cells.length; columnIndex++) {
-            var columnName = table.rows[0].cells[columnIndex].textContent;
-            var input = table.rows[0].cells[columnIndex].querySelector('input');
-            var select = table.rows[0].cells[columnIndex].querySelector('select');
-            var filterValue = input ? input.value.toLowerCase() : (select ? select.value.toLowerCase() : '');
+        for (var j = 0; j < table.rows[0].cells.length; j++) {
+            var cellValue = rows[i].cells[j].textContent.trim();
 
-            var cellValue = rows[i].cells[columnIndex].textContent || rows[i].cells[columnIndex].innerText;
-
-            if (columnName === 'engine_type' && filterValue !== 'all' && filterValue !== cellValue.toLowerCase()) {
-                rowVisible = false;
-                break;
+            // Apply text filters
+            var inputFilters = table.rows[0].cells[j].querySelectorAll('input[type="text"]');
+            if (inputFilters.length > 0) {
+                var filterValue = inputFilters[0].value.toLowerCase();
+                if (filterValue !== '' && !cellValue.toLowerCase().includes(filterValue)) {
+                    rowVisible = false;
+                    break;
+                }
             }
 
-            if (columnName !== 'engine_type' && filterValue !== 'all' && !cellValue.toLowerCase().includes(filterValue)) {
-                rowVisible = false;
-                break;
+            // Apply select filters
+            var selectFilter = table.rows[0].cells[j].querySelector('select');
+            if (selectFilter) {
+                var filterValueSelect = selectFilter.value.toLowerCase();
+                var cellValueSelect = cellValue.toLowerCase();
+                if (filterValueSelect !== 'all' && filterValueSelect !== cellValueSelect) {
+                    rowVisible = false;
+                    break;
+                }
+            }
+        }
+
+        rows[i].style.display = rowVisible ? '' : 'none';
+    }
+}
+
+function handleMinMaxFilter() {
+    var columnIndex = parseInt(this.getAttribute('data-columnIndex'));
+    var minFilterValue = parseFloat(this.parentNode.querySelector('input[placeholder="Min"]').value) || 0;
+    var maxFilterValue = parseFloat(this.parentNode.querySelector('input[placeholder="Max"]').value) || Infinity;
+
+    filterTableMinMax(columnIndex, minFilterValue, maxFilterValue);
+
+    // Only call filterTable if min or max value is empty
+    if (isNaN(minFilterValue) || isNaN(maxFilterValue)) {
+        filterTable(); // Apply all other filters
+    }
+}
+
+
+function filterTableMinMax(columnIndex, minFilterValue, maxFilterValue) {
+    var table = document.getElementById('myTable');
+    var rows = table.rows;
+
+    for (var i = 1; i < rows.length; i++) {
+        var rowVisible = true;
+
+        for (var j = 0; j < table.rows[0].cells.length; j++) {
+            var cellValue = rows[i].cells[j].textContent.trim();
+
+            // Apply min-max filter to the appropriate columns
+            if (['year_of_production', 'vmax', 'price'].includes(table.rows[0].cells[j].textContent)) {
+                var cellValueNum = parseFloat(cellValue) || 0;
+                var minInput = table.rows[0].cells[j].querySelector('input[placeholder="Min"]');
+                var maxInput = table.rows[0].cells[j].querySelector('input[placeholder="Max"]');
+                var filterMin = minInput ? parseFloat(minInput.value) || -Infinity : -Infinity;
+                var filterMax = maxInput ? parseFloat(maxInput.value) || Infinity : Infinity;
+
+                if (cellValueNum < filterMin || cellValueNum > filterMax) {
+                    rowVisible = false;
+                    break;
+                }
             }
 
+            // Apply other filters to non-min-max columns
+            if (j !== columnIndex) {
+                var inputFilters = table.rows[0].cells[j].querySelectorAll('input[type="text"]');
+                if (inputFilters.length > 0) {
+                    var filterValue = inputFilters[0].value.toLowerCase();
+                    if (filterValue !== '' && !cellValue.toLowerCase().includes(filterValue)) {
+                        rowVisible = false;
+                        break;
+                    }
+                }
+            }
+
+            // Apply engine type filter
+            if (table.rows[0].cells[j].textContent === 'engine_type') {
+                var selectFilter = table.rows[0].cells[j].querySelector('select');
+                if (selectFilter) {
+                    var filterValueSelect = selectFilter.value.toLowerCase();
+                    var cellValueSelect = cellValue.toLowerCase();
+                    if (filterValueSelect !== 'all' && filterValueSelect !== cellValueSelect) {
+                        rowVisible = false;
+                        break;
+                    }
+                }
+            }
         }
 
         rows[i].style.display = rowVisible ? '' : 'none';
