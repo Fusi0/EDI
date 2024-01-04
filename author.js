@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
       author.addEventListener('mouseover', function() {
           author.style.transition = 'opacity 0.3s ease-in-out';
           author.style.opacity = '0';
+          event.target.style.lineHeight = '1'
           setTimeout(() => {
               author.textContent = descriptions[author.id];
               author.style.opacity = '1';
@@ -31,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
       author.addEventListener('mouseout', function() {
           author.style.transition = 'opacity 0.3s ease-in-out';
           author.style.opacity = '0';
+          event.target.style.lineHeight = '0'
           setTimeout(() => {
               author.textContent = originalTexts[author.id];
               author.style.opacity = '1';
