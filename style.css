@@ -123,3 +123,6 @@ nav a:hover{
     float: left;
     box-sizing: border-box;
   }
+  #authors p {
+    transition: opacity 0.2s ease-in-out;
+}
