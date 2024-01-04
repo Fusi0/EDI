@@ -125,4 +125,5 @@ nav a:hover{
   }
   #authors p {
     transition: opacity 0.2s ease-in-out;
+    font-size: 2px;
 }
