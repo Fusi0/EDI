@@ -1,7 +1,9 @@
 body {
-    background-color: black;
     color: white;
+    background: linear-gradient(to bottom, #020024, #7878a1); /* Change background gradient as needed */
+
 }
+
 
 table {
     border-collapse: collapse;
@@ -17,8 +19,10 @@ th, td {
 
 }
 
+
+
 th {
-    background-color: #000080;
+    background-color: #38598b;
 }
 
 input {
@@ -30,7 +34,7 @@ input {
 }
 
 #myTable .filter-row {
-    background-color:   #000080; 
+    background-color:   #38598b; 
 }
 
 
@@ -47,14 +51,7 @@ h1 {
     font-family: 'Lucida Sans';
 }
 
-#authors {
-    border-style: dotted;
-    border-width: 10px;
-    margin-left: 30%;
-    margin-right: 30%;
-    border-radius: 25% 10%;
 
-}
 
 #description {
     margin-bottom: 30px;
@@ -85,6 +82,7 @@ h1 {
     margin-bottom: 50px;
 }
 
+
 a {
     color:blue;
 }
@@ -97,3 +95,30 @@ p {
 labels {
     color: red;
 }
+nav {
+background-color: #333; /* Background color of the navigation bar */
+overflow: hidden;
+
+
+}
+nav a {
+float: left;
+display: block;
+color: #f2f2f2; /* Text color */
+text-align: center;
+padding: 14px 16px;
+text-decoration: none;
+}
+
+nav a:hover{
+
+    background-color: #000080;
+    color: white;
+}
+
+#navBar {
+    margin-left: 36%;
+    width: 405px;
+
+}
+
