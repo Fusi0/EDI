@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const descriptions = {
       'author1': 'Miłośnik psów, sportowych samochodów oraz gier karcianych. W wolnym czasie gram w pokera lub w koszykówkę.',
-      'author2': 'Adam Ronkiewicz - opis',
+      'author2': 'Uwielbiam gotowanie i długie spacery, ale nic nie sprawia mi takiej przyjemności, jak spędzanie czasu z znajomymi.',
       'author3': 'Studiuje informatykę stosowaną na Uniwersytecie Ekonomicznym w Krakowie. Aktualnie jestem na pirewszym roku studiów. Urodziłem się 06.06.2004r. w Krakowie. W wolnym czasie gram w gry komputerowe oraz oglądam filmy.',
       'author4': 'Jestem studentem pierwszego roku na Uniwersytecie Ekonomicznym w Krakowie. Studiuję na kierunku Informatyka Stosowana. Urodziłem się 07.06.2003r. w Oświęcimiu. W wolnym czasie lubię grać w gry i czytać książki'
   };
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   [author1, author2, author3, author4].forEach(author => {
       author.addEventListener('mouseover', function() {
-          author.style.transition = 'opacity 0.3s ease-in-out';
+          author.style.transition = 'opacity 0.7s ease-in-out';
           author.style.opacity = '0';
           event.target.style.lineHeight = '1'
           setTimeout(() => {
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
 
       author.addEventListener('mouseout', function() {
-          author.style.transition = 'opacity 0.3s ease-in-out';
+          author.style.transition = 'opacity 0.7s ease-in-out';
           author.style.opacity = '0';
           event.target.style.lineHeight = '0'
           setTimeout(() => {

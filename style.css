@@ -108,8 +108,7 @@ nav a:hover{
 
 #navBar {
     
-    width: 14%
-
+width: fit-content;
 }
 
 .container {
@@ -133,4 +132,14 @@ nav a:hover{
 
 footer{
     margin-top: 15px;
+}
+
+#myChart {
+    border: dashed;
+    border-width: 1px;
+}
+
+#myChart2 {
+    border: dashed;
+    border-width: 1px;
 }
