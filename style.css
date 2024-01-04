@@ -1,6 +1,6 @@
 body {
     color: white;
-    background: linear-gradient(to bottom, #020024, #7878a1); /* Change background gradient as needed */
+    background: linear-gradient(to bottom,#7878a1, #020024); /* Change background gradient as needed */
 
 }
 
@@ -40,7 +40,7 @@ input {
 
 .center {
     margin: auto;
-    width: 50%;
+    width: 100%;
     text-align: center;
 }
 
@@ -72,16 +72,6 @@ h1 {
     
     
 }
-
-#myChart1 {
- margin-top: 50px;
- margin-bottom: 50px;
-}
-#myChart2 {
-    margin-top: 50px;
-    margin-bottom: 50px;
-}
-
 
 a {
     color:blue;
@@ -117,8 +107,19 @@ nav a:hover{
 }
 
 #navBar {
-    margin-left: 36%;
-    width: 405px;
+    
+    width: 14%
 
 }
 
+.container {
+    width: 100%;
+    overflow: hidden; /* Clear the float */
+    margin-top: 50px;
+  }
+
+  .box {
+    width: 50%;
+    float: left;
+    box-sizing: border-box;
+  }

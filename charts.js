@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 function createEngineTypesChart(data) {
+    Chart.defaults.color = '#FFFFFF';
 
     const engineTypeCounts = {};
     data.forEach(item => {
