@@ -34,7 +34,13 @@ function displayData(data) {
     var row = table.insertRow();
     for (var key in item) {
       var cell = row.insertCell();
-      cell.textContent = item[key];
+      var cellText = item[key];
+      if (key === "vmax") {
+        cellText += " km/h";
+      } else if (key === "price") {
+        cellText += " zł";
+      }
+      cell.textContent = cellText;
     }
   });
 
