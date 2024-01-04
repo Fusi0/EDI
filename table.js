@@ -1,5 +1,5 @@
 function fetchAPI() {
-  var apiUrl = "cars.json"; // here will be api in future
+  var apiUrl = "https://my.api.mockaroo.com/cars.json?key=51df27a0"; // here will be api in future
 
   fetch(apiUrl)
     .then((response) => {

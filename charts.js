@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("cars.json")
+  fetch("https://my.api.mockaroo.com/cars.json?key=51df27a0")
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
