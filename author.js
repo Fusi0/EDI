@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const author4 = document.getElementById('author4');
 
   const descriptions = {
-      'author1': 'Jakub Fus - opis',
+      'author1': 'Miłośnik psów, sportowych samochodów oraz gier karcianych. W wolnym czasie gram w pokera lub w koszykówkę.',
       'author2': 'Adam Ronkiewicz - opis',
       'author3': 'Studiuje informatykę stosowaną na Uniwersytecie Ekonomicznym w Krakowie. Aktualnie jestem na pirewszym roku studiów. Urodziłem się 06.06.2004r. w Krakowie. W wolnym czasie gram w gry komputerowe oraz oglądam filmy.',
       'author4': 'Jestem studentem pierwszego roku na Uniwersytecie Ekonomicznym w Krakowie. Studiuję na kierunku Informatyka Stosowana. Urodziłem się 07.06.2003r. w Oświęcimiu. W wolnym czasie lubię grać w gry i czytać książki'

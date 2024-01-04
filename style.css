@@ -124,5 +124,13 @@ nav a:hover{
     box-sizing: border-box;
   }
   #authors p {
+    padding-top: 5px;
     transition: opacity 0.2s ease-in-out;
+    text-align: center;
+    
+    min-height: 25px;
+}
+
+footer{
+    margin-top: 15px;
 }
