@@ -27,7 +27,7 @@ c. Create a data schema in JSON. You can prepare data on any topic, such as prod
 d. Create an API to retrieve 100 rows of data in JSON using the API and GET method.
 
 
-(❌) 6. Create a website for retrieving and displaying data:
+(✔️) 6. Create a website for retrieving and displaying data:
 a. On the project website display project title and project team members.
 b. Download data using the created API.
 c. Use XMLHttpRequest, Fetch API or JQuery library to retrieve data from Mockaroo service:
@@ -42,12 +42,14 @@ ii) https://naver.github.io/billboard.js/
 iii) https://www.freecodecamp.org/news/these-are-the-best-javascript-chartlibraries-for-2019-29782f5e1dc2/
 
 
-(❌) 7. Host the website on github. The project website should be available at the URL:
-https://<github_account_name>.github.io/EDI
+(✔️) 7. Host the website on github. The project website should be available at the URL:
+
+https://fusi0.github.io/EDI/
+
 https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-githubpages-site
 
 
-(❌) 8. Submit the project for assessment:
+(✔️) 8. Submit the project for assessment:
 a. On the Moodle platform (Group Project item), paste the link to your project website, hosted on the github (each team member do this separately).
 b. Additionally, paste the link to your project below the project registration post (add a reply to the project registration post and paste the project link in the reply).
 
